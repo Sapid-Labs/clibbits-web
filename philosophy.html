@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philosophy - Clibbits</title>
+  <meta name="description" content="The thinking behind Clibbits. Why clipboard management matters more than you think.">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">Clibbits</a>
+      <button class="theme-toggle theme-toggle-mobile" onclick="toggleTheme()">&#x25D0;</button>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="hotlinks.html">Hot Links</a></li>
+        <li><a href="philosophy.html">Philosophy</a></li>
+        <li><button class="theme-toggle" onclick="toggleTheme()">&#x25D0;</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Philosophy Content -->
+  <main class="page-content">
+    <h1>The Clipboard Is the Most Underrated Interface</h1>
+
+    <div class="page-body">
+      <p>Every operating system ships with a clipboard. It's the oldest, simplest, most universal data transfer mechanism we have. Copy. Paste. Done.</p>
+
+      <p>And yet, for decades, it's been treated as a single slot. One item in, one item out. The moment you copy something new, the old thing is gone. We've been working with a system that has the memory of a goldfish.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>The copy-paste tax</strong></p>
+
+      <p>Watch someone work for an hour. Count the number of times they switch windows to copy something, switch back, paste it, then go back again to copy the next thing. It's a shuttle run. Back and forth, tab to tab, window to window.</p>
+
+      <p>This isn't a minor friction. It's a compounding one. Every context switch has a cognitive cost. Every time you leave what you're doing to go find that thing you need to paste, you lose a little bit of the thread you were holding. Multiply that by a hundred times a day, five days a week, and you've lost a meaningful chunk of your attention to clipboard logistics.</p>
+
+      <p>Most tools try to solve this by adding integrations. Connect this app to that app. Set up a webhook. Configure an API. Clibbits takes the opposite approach: the clipboard is already universal. Every app already knows how to copy and paste. We just need the clipboard to be smarter about what it holds.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>Information wants to be stacked</strong></p>
+
+      <p>When you're preparing context for an AI assistant, filing a bug report, writing documentation, or briefing a colleague, you rarely need just one piece of information. You need three, or five, or eight things stitched together.</p>
+
+      <p>The error log. The screenshot. The config file. The reproduction steps you just dictated. The relevant snippet from the docs. These all live in different places, and the traditional clipboard forces you to move them one at a time.</p>
+
+      <p>Context stacking changes this. Add items to a stack from anywhere &mdash; clipboard history, transcription, screenshots &mdash; and paste them as a single block when you're ready. The stack is the unit of communication, not the individual copy.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>Local first</strong></p>
+
+      <p>Your clipboard contains some of the most sensitive data on your machine. Passwords. API keys. SSH commands. Private messages. The contents of files you're editing.</p>
+
+      <p>Clibbits runs locally. Your clipboard history lives on your disk in JSON files. The OCR runs locally via Tesseract.js. Transcription happens on your machine. The only feature that touches the network is AI processing, and that's optional &mdash; you bring your own API key and can leave it unconfigured entirely.</p>
+
+      <p>We filter out sensitive content by default. The ignore patterns setting lets you define regexes for content that should never be saved &mdash; password fields, token patterns, whatever you need excluded. The clipboard sees everything; Clibbits doesn't have to.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>The clipboard as a workspace</strong></p>
+
+      <p>The conventional clipboard is a pipe. Data goes in one end and comes out the other. Clibbits reimagines it as a workspace. A place where information accumulates, gets organized, gets enriched, and gets assembled into something useful before it goes where it's going.</p>
+
+      <p>Boards give you spatial organization. Hot links give you actionable context. OCR makes images searchable. AI processing transforms raw content. Stacking lets you compose. Source tracking gives you provenance. Transcription gives you voice as an input channel.</p>
+
+      <p>None of these features require you to change how you work. You still copy and paste. You just get more out of it.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>Small tools, sharp edges</strong></p>
+
+      <p>Clibbits isn't trying to be a second brain or an everything app. It's a clipboard manager. It sits in your menu bar, stays out of the way, and does its job. When you need it, it's there. When you don't, it's invisible.</p>
+
+      <p>The best tools are the ones you forget you're using until someone asks how you found that thing so fast.</p>
+
+      <p class="page-signature">The Clibbits team</p>
+    </div>
+
+    <hr class="dotted-line">
+
+    <p class="cta">
+      <a href="index.html" class="btn btn-primary">Back home</a>
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-content">
+        <p class="footer-copyright"><span class="footer-brand">Clibbits</span> &copy; 2026</p>
+        <ul class="footer-links">
+          <li><a href="hotlinks.html">Hot Links</a></li>
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><button class="theme-toggle" onclick="toggleTheme()">&#x25D0;</button></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    function toggleNav() {
+      var navLinks = document.getElementById('nav-links');
+      if (navLinks) navLinks.classList.toggle('open');
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        var navLinks = document.getElementById('nav-links');
+        if (navLinks) navLinks.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>

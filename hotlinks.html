@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hot Links - Clibbits</title>
+  <meta name="description" content="How Hot Links work in Clibbits. Turn clipboard text into clickable links with regex patterns.">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">Clibbits</a>
+      <button class="theme-toggle theme-toggle-mobile" onclick="toggleTheme()">&#x25D0;</button>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="hotlinks.html">Hot Links</a></li>
+        <li><a href="philosophy.html">Philosophy</a></li>
+        <li><button class="theme-toggle" onclick="toggleTheme()">&#x25D0;</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hot Links Content -->
+  <main class="page-content">
+    <h1>Hot Links</h1>
+
+    <div class="page-body">
+      <p>Hot Links turn clipboard text into clickable links. You define a regex pattern and a URL template. When something you copy matches the pattern, Clibbits shows a clickable link that opens in your browser.</p>
+
+      <p>You configure them once. After that, they just work.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>How it works</strong></p>
+
+      <p>Each Hot Link has three parts:</p>
+
+      <p><strong>Label</strong> &mdash; a human-readable name shown when the link appears. "Jira Ticket", "GitHub PR", whatever makes sense to you.</p>
+
+      <p><strong>Pattern</strong> &mdash; a regular expression that matches against clipboard text. Use capture groups to extract the parts you need. For example, <code>([A-Z]+-\d+)</code> captures Jira-style ticket IDs like AUTH-2847 or INFRA-103.</p>
+
+      <p><strong>URL Template</strong> &mdash; the URL to open when clicked. Use <code>$1</code>, <code>$2</code>, etc. to insert captured groups. If your pattern has no capture groups, <code>$1</code> maps to the full match.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>Examples</strong></p>
+
+      <table class="example-table">
+        <thead>
+          <tr>
+            <th>Label</th>
+            <th>Pattern</th>
+            <th>URL Template</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jira Ticket</td>
+            <td><code>([A-Z]+-\d+)</code></td>
+            <td><code>https://jira.example.com/browse/$1</code></td>
+          </tr>
+          <tr>
+            <td>GitHub PR</td>
+            <td><code>#(\d+)</code></td>
+            <td><code>https://github.com/org/repo/pull/$1</code></td>
+          </tr>
+          <tr>
+            <td>Commit</td>
+            <td><code>([0-9a-f]{7,40})</code></td>
+            <td><code>https://github.com/org/repo/commit/$1</code></td>
+          </tr>
+          <tr>
+            <td>AWS Console</td>
+            <td><code>(i-[0-9a-f]+)</code></td>
+            <td><code>https://console.aws.amazon.com/ec2/home#Instances:search=$1</code></td>
+          </tr>
+          <tr>
+            <td>npm Package</td>
+            <td><code>^(@?[\w-]+(?:/[\w-]+)?)</code></td>
+            <td><code>https://www.npmjs.com/package/$1</code></td>
+          </tr>
+          <tr>
+            <td>Stack Overflow</td>
+            <td><code>stackoverflow\.com/questions/(\d+)</code></td>
+            <td><code>https://stackoverflow.com/questions/$1</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="dotted-line">
+
+      <p><strong>Eligibility filter</strong></p>
+
+      <p>Not every clipboard entry gets checked. Clibbits skips anything with 4 or more spaces, since that's likely a sentence rather than an identifier. This keeps Hot Links fast and avoids false positives on prose.</p>
+
+      <p>Short strings like ticket IDs, commit hashes, instance IDs, and package names fly right through. Long paragraphs don't.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>Capture groups</strong></p>
+
+      <p><code>$0</code> always maps to the full match. <code>$1</code> through <code>$9</code> map to captured groups in order. If your pattern has no capture groups, <code>$1</code> is treated as the full match for convenience, so you don't need to wrap the whole pattern in parentheses unless you want to.</p>
+
+      <p>All substituted values are URL-encoded automatically. You don't need to worry about special characters in ticket IDs or branch names breaking the URL.</p>
+
+      <hr class="dotted-line">
+
+      <p><strong>Setting them up</strong></p>
+
+      <p>Open Clibbits settings, find the Hot Links section, and click "Add Hot Link." Fill in the three fields, hit Add, then Save. The pattern is validated as you type &mdash; if the regex is invalid, you'll see a warning before you can save.</p>
+
+      <p>You can edit or delete existing Hot Links at any time. Changes take effect immediately after saving.</p>
+    </div>
+
+    <hr class="dotted-line">
+
+    <p class="cta">
+      <a href="index.html" class="btn btn-primary">Back home</a>
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-content">
+        <p class="footer-copyright"><span class="footer-brand">Clibbits</span> &copy; 2026</p>
+        <ul class="footer-links">
+          <li><a href="hotlinks.html">Hot Links</a></li>
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><button class="theme-toggle" onclick="toggleTheme()">&#x25D0;</button></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    function toggleNav() {
+      var navLinks = document.getElementById('nav-links');
+      if (navLinks) navLinks.classList.toggle('open');
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        var navLinks = document.getElementById('nav-links');
+        if (navLinks) navLinks.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
