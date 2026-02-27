@@ -1,329 +1,390 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clibbits: Clipboard manager with AI, OCR, and context stacking</title>
-  <meta name="description" content="A clipboard manager that monitors, organizes, and enriches everything you copy. OCR, AI processing, screenshots, boards, and hot links.">
-  <meta name="theme-color" content="#faf9f7">
-  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a href="/" class="nav-logo">Clibbits</a>
-      <button class="theme-toggle theme-toggle-mobile" onclick="toggleTheme()">&#x25D0;</button>
-      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="hotlinks.html">Hot Links</a></li>
-        <li><a href="philosophy.html">Philosophy</a></li>
-        <li><button class="theme-toggle" onclick="toggleTheme()">&#x25D0;</button></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <h1>Your clipboard, but it remembers everything.</h1>
-      <p class="hero-tagline">Clipboard monitoring, custom boards, OCR, AI processing, screenshots, transcription, and hot links.</p>
-      <p class="hero-audience">Built for developers, writers, and anyone who copies too much.</p>
-      <div class="download-cta">
-        <a href="https://github.com/sponsors/jtmuller5" class="download-btn">
-          <span class="download-label">Get the app</span>
-          <span class="download-free">Sponsor</span>
-        </a>
-        <p class="download-note">Sponsor on GitHub to get access. macOS 14+ and Apple Silicon (M1 or later).</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features" class="features">
-    <div class="container">
-      <hr class="dotted-line">
-
-      <!-- Feature 1: Clipboard Monitoring -->
-      <article class="feature">
-        <div class="feature-content">
-          <h2>Automatic clipboard history &mdash; never lose a copy again.</h2>
-          <p class="feature-problem">Every text snippet and image you copy is saved instantly. No manual action required. Clibbits polls your clipboard every 500ms, deduplicates entries, and persists everything to disk.</p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  +-----------------------------------------+
-  |  Clipboard Monitor            [polling] |
-  +-----------------------------------------+
-  |  12:04:31  "ssh user@prod-03"           |
-  |  12:04:28  &lt;image: screenshot.png&gt;      |
-  |  12:03:55  "SELECT * FROM users WHER.." |
-  |  12:03:40  "Bearer eyJhbGciOi..."       |
-  |  12:02:12  "https://github.com/..."     |
-  +-----------------------------------------+
-  |  <span class="highlight">5 items</span>  |  auto-saved to disk       |
-  +-----------------------------------------+</div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 2: Custom Boards -->
-      <article class="feature reversed">
-        <div class="feature-content">
-          <h2>Custom boards &mdash; organize your clipboard like a kanban.</h2>
-          <p class="feature-problem">Create named boards for different projects or workflows. Your main board captures everything by default. Switch between boards to keep context separated. Each board is its own file on disk.</p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  boards.json
-  +---------+-----------+-----------+
-  | <span class="highlight">Main</span>    | Project A | Research  |
-  +---------+-----------+-----------+
-  |         |           |           |
-  | index   | a3f7...   | b8c2...   |
-  | .json   | .json     | .json     |
-  |         |           |           |
-  +---------+-----------+-----------+
-  active: <span class="highlight">Project A</span></div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 3: OCR -->
-      <article class="feature">
-        <div class="feature-content">
-          <h2>OCR built in &mdash; copy text from any image.</h2>
-          <p class="feature-problem">Paste a screenshot containing text and Clibbits extracts it with Tesseract.js. Error messages from terminal screenshots, text in design mockups, code from conference slides &mdash; all become searchable, copyable text.</p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  +---------------------------+
-  |  [Screenshot of terminal] |
-  |                           |
-  |  Error: ENOENT: no such   |
-  |  file or directory,       |
-  |  open '/tmp/config.yml'   |
-  +---------------------------+
-          |
-          v  Tesseract.js
-  +---------------------------+
-  |  "Error: ENOENT: no such  |
-  |   file or directory,      |
-  |   open '/tmp/config.yml'" |
-  +---------------------------+
-          <span class="highlight">ready to paste</span></div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 4: AI Processing -->
-      <article class="feature reversed">
-        <div class="feature-content">
-          <h2>AI text processing &mdash; transform clipboard content on the fly.</h2>
-          <p class="feature-problem">Send any clipboard entry through Gemini AI with custom prompt templates. Summarize long text, translate, extract key points, rewrite for tone, or run any prompt you define. Results land right back in your clipboard.</p>
-          <div class="feature-badges">
-            <span class="online-badge">requires internet</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  clipboard item
-  "The quarterly results indicate a
-   significant deviation from projected
-   growth metrics across all verticals,
-   particularly in the B2B SaaS segment
-   where ARR fell short by 12%..."
-          |
-          v  <span class="highlight">prompt: "summarize in one line"</span>
-          |
-  "Q4 missed ARR targets by 12%,
-   mainly in B2B SaaS."</div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 5: Hot Links -->
-      <article class="feature">
-        <div class="feature-content">
-          <h2>Hot Links &mdash; clipboard text becomes clickable.</h2>
-          <p class="feature-problem">Define regex patterns that match clipboard content and generate URLs. Copy a Jira ticket ID and get a clickable link. Copy a commit hash and open it on GitHub. Patterns use capture groups so you wire them up once and they just work.</p>
-          <p class="feature-problem"><a href="hotlinks.html" style="text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px;">See the dedicated Hot Links page with setup examples.</a></p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  settings &gt; hot links
-  +------------------------------------+
-  | Label:    Jira Ticket              |
-  | Pattern:  ([A-Z]+-\d+)            |
-  | URL:      https://jira.co/browse/$1|
-  +------------------------------------+
-
-  clipboard: "Fix AUTH-2847 before release"
-                  |
-                  v
-  <span class="highlight">[Jira Ticket: AUTH-2847]</span>  &lt;-- click to open</div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 6: Context Stacking -->
-      <article class="feature reversed">
-        <div class="feature-content">
-          <h2>Context stacking &mdash; bundle multiple items into one paste.</h2>
-          <p class="feature-problem">Add clipboard entries and transcription snippets to a stack. When you're ready, paste the entire stack as a single block of context. Great for feeding multiple pieces of information into an AI chat or a bug report.</p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  Stack Panel
-  +------------------------------------+
-  | 1. error log from terminal         |
-  | 2. screenshot of failing UI        |
-  | 3. relevant config snippet         |
-  | 4. voice note transcription        |
-  +------------------------------------+
-         |
-         v  paste all
-  +------------------------------------+
-  | [combined context block]           |
-  | ready for Claude / ChatGPT / Slack |
-  +------------------------------------+</div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 7: Screenshots & Annotation -->
-      <article class="feature">
-        <div class="feature-content">
-          <h2>Screenshot capture and annotation.</h2>
-          <p class="feature-problem">Capture your screen, draw on the result, and paste it. Circle the bug, arrow to the button that's wrong, scribble a quick wireframe. No export step, no separate app &mdash; it's already in your clipboard.</p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  +---------------------------+
-  |     screen capture        |
-  |   +---+                   |
-  |   | O |  &lt;-- circle this  |
-  |   +---+                   |
-  |         \                 |
-  |          \  arrow here    |
-  |           v               |
-  |       [ button ]          |
-  +---------------------------+
-       <span class="highlight">annotated &amp; copied</span></div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 8: Transcription -->
-      <article class="feature reversed">
-        <div class="feature-content">
-          <h2>Voice transcription &mdash; speak, don't type.</h2>
-          <p class="feature-problem">Real-time voice-to-text that lands in your clipboard or directly onto the stack. Dictate notes, describe a bug, or narrate what you're looking at. The transcription is local and fast.</p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  mic on
-  +------------------------------------+
-  | "The login page throws a 403 after |
-  |  the token refresh, I think it's   |
-  |  the cookie domain mismatch we     |
-  |  saw last week..."                 |
-  +------------------------------------+
-         |
-         v  transcribed
-  +------------------------------------+
-  | The login page throws a 403 after  |
-  | the token refresh. Likely the      |
-  | cookie domain mismatch from last   |
-  | week.                              |
-  +------------------------------------+</div>
-      </article>
-
-      <hr class="dotted-line">
-
-      <!-- Feature 9: Source App Tracking -->
-      <article class="feature">
-        <div class="feature-content">
-          <h2>Source app tracking &mdash; know where everything came from.</h2>
-          <p class="feature-problem">Every clipboard entry records which application it came from. When you're reviewing history, you can see at a glance whether that snippet was from VS Code, Chrome, Slack, or Terminal.</p>
-          <div class="feature-badges">
-            <span class="offline-badge">works locally</span>
-          </div>
-        </div>
-        <div class="feature-visual">
-  clipboard history
-  +------------------------------------+
-  | "rm -rf node_modules"              |
-  | <span class="highlight">from: Terminal</span>       12:04:31      |
-  +------------------------------------+
-  | "function debounce(fn, ms) {..."   |
-  | <span class="highlight">from: VS Code</span>       12:03:55      |
-  +------------------------------------+
-  | "Can you review PR #412?"          |
-  | <span class="highlight">from: Slack</span>          12:02:12      |
-  +------------------------------------+</div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-content">
-        <p class="footer-copyright"><span class="footer-brand">Clibbits</span> &copy; 2026</p>
-        <ul class="footer-links">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Clibbits: Clipboard manager with AI, OCR, and context stacking
+    </title>
+    <meta
+      name="description"
+      content="A clipboard manager that monitors, organizes, and enriches everything you copy. OCR, AI processing, screenshots, boards, and hot links."
+    />
+    <meta name="theme-color" content="#faf9f7" />
+    <meta
+      name="theme-color"
+      content="#1e1e1e"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a href="/" class="nav-logo">Clibbits</a>
+        <button
+          class="theme-toggle theme-toggle-mobile"
+          onclick="toggleTheme()"
+        >
+          &#x25D0;
+        </button>
+        <button
+          class="nav-toggle"
+          onclick="toggleNav()"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <ul class="nav-links" id="nav-links">
           <li><a href="hotlinks.html">Hot Links</a></li>
           <li><a href="philosophy.html">Philosophy</a></li>
-          <li><button class="theme-toggle" onclick="toggleTheme()">&#x25D0;</button></li>
+          <li>
+            <button class="theme-toggle" onclick="toggleTheme()">
+              &#x25D0;
+            </button>
+          </li>
         </ul>
       </div>
-    </div>
-  </footer>
+    </nav>
 
-  <script>
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
-    }
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Your clipboard, but it remembers everything.</h1>
+        <p class="hero-tagline">
+          Clipboard monitoring, custom boards, OCR, AI processing, screenshots,
+          transcription, and hot links.
+        </p>
+        <p class="hero-audience">
+          Built for developers, writers, and anyone who copies too much.
+        </p>
+        <div class="download-cta">
+          <a href="https://github.com/sponsors/jtmuller5" class="download-btn">
+            <span class="download-label">Get the app</span>
+            <span class="download-free">Sponsor</span>
+          </a>
+          <p class="download-note">
+            Sponsor on GitHub to get access. macOS 14+ and Apple Silicon (M1 or
+            later).
+          </p>
+        </div>
+      </div>
+    </section>
 
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-    }
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <div class="container">
+        <hr class="dotted-line" />
 
-    function toggleNav() {
-      var navLinks = document.getElementById('nav-links');
-      if (navLinks) navLinks.classList.toggle('open');
-    }
+        <!-- Feature 1: Clipboard Monitoring -->
+        <article class="feature">
+          <div class="feature-content">
+            <h2>
+              Automatic clipboard history &mdash; never lose a copy again.
+            </h2>
+            <p class="feature-problem">
+              Every text snippet and image you copy is saved instantly. No
+              manual action required. Clibbits polls your clipboard every 500ms,
+              deduplicates entries, and persists everything to disk.
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            +-----------------------------------------+ | Clipboard Monitor
+            [polling] | +-----------------------------------------+ | 12:04:31
+            "ssh user@prod-03" | | 12:04:28 &lt;image: screenshot.png&gt; | |
+            12:03:55 "SELECT * FROM users WHER.." | | 12:03:40 "Bearer
+            eyJhbGciOi..." | | 12:02:12 "https://github.com/..." |
+            +-----------------------------------------+ |
+            <span class="highlight">5 items</span> | auto-saved to disk |
+            +-----------------------------------------+
+          </div>
+        </article>
 
-    document.querySelectorAll('.nav-links a').forEach(function(link) {
-      link.addEventListener('click', function() {
-        var navLinks = document.getElementById('nav-links');
-        if (navLinks) navLinks.classList.remove('open');
+        <hr class="dotted-line" />
+
+        <!-- Feature 2: Custom Boards -->
+        <article class="feature reversed">
+          <div class="feature-content">
+            <h2>
+              Custom boards &mdash; organize your clipboard like a kanban.
+            </h2>
+            <p class="feature-problem">
+              Create named boards for different projects or workflows. Your main
+              board captures everything by default. Switch between boards to
+              keep context separated. Each board is its own file on disk.
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            boards.json +---------+-----------+-----------+ |
+            <span class="highlight">Main</span> | Project A | Research |
+            +---------+-----------+-----------+ | | | | | index | a3f7... |
+            b8c2... | | .json | .json | .json | | | | |
+            +---------+-----------+-----------+ active:
+            <span class="highlight">Project A</span>
+          </div>
+        </article>
+
+        <hr class="dotted-line" />
+
+        <!-- Feature 3: OCR -->
+        <article class="feature">
+          <div class="feature-content">
+            <h2>OCR built in &mdash; copy text from any image.</h2>
+            <p class="feature-problem">
+              Paste a screenshot containing text and Clibbits extracts it with
+              Tesseract.js. Error messages from terminal screenshots, text in
+              design mockups, code from conference slides &mdash; all become
+              searchable, copyable text.
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            +---------------------------+ | [Screenshot of terminal] | | | |
+            Error: ENOENT: no such | | file or directory, | | open
+            '/tmp/config.yml' | +---------------------------+ | v Tesseract.js
+            +---------------------------+ | "Error: ENOENT: no such | | file or
+            directory, | | open '/tmp/config.yml'" |
+            +---------------------------+
+            <span class="highlight">ready to paste</span>
+          </div>
+        </article>
+
+        <hr class="dotted-line" />
+
+        <!-- Feature 4: AI Processing -->
+        <article class="feature reversed">
+          <div class="feature-content">
+            <h2>
+              AI text processing &mdash; transform clipboard content on the fly.
+            </h2>
+            <p class="feature-problem">
+              Send any clipboard entry through Gemini AI with custom prompt
+              templates. Summarize long text, translate, extract key points,
+              rewrite for tone, or run any prompt you define. Results land right
+              back in your clipboard.
+            </p>
+            <div class="feature-badges">
+              <span class="online-badge">requires internet</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            clipboard item "The quarterly results indicate a significant
+            deviation from projected growth metrics across all verticals,
+            particularly in the B2B SaaS segment where ARR fell short by 12%..."
+            | v <span class="highlight">prompt: "summarize in one line"</span> |
+            "Q4 missed ARR targets by 12%, mainly in B2B SaaS."
+          </div>
+        </article>
+
+        <hr class="dotted-line" />
+
+        <!-- Feature 5: Hot Links -->
+        <article class="feature">
+          <div class="feature-content">
+            <h2>Hot Links &mdash; clipboard text becomes clickable.</h2>
+            <p class="feature-problem">
+              Define regex patterns that match clipboard content and generate
+              URLs. Copy a Jira ticket ID and get a clickable link. Copy a
+              commit hash and open it on GitHub. Patterns use capture groups so
+              you wire them up once and they just work.
+            </p>
+            <p class="feature-problem">
+              <a
+                href="hotlinks.html"
+                style="
+                  text-decoration: underline;
+                  text-decoration-style: dotted;
+                  text-underline-offset: 3px;
+                "
+                >See the dedicated Hot Links page with setup examples.</a
+              >
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            settings &gt; hot links +------------------------------------+ |
+            Label: Jira Ticket | | Pattern: ([A-Z]+-\d+) | | URL:
+            https://jira.co/browse/$1| +------------------------------------+
+            clipboard: "Fix AUTH-2847 before release" | v
+            <span class="highlight">[Jira Ticket: AUTH-2847]</span> &lt;-- click
+            to open
+          </div>
+        </article>
+
+        <hr class="dotted-line" />
+
+        <!-- Feature 6: Context Stacking -->
+        <article class="feature reversed">
+          <div class="feature-content">
+            <h2>
+              Context stacking &mdash; bundle multiple items into one paste.
+            </h2>
+            <p class="feature-problem">
+              Add clipboard entries and transcription snippets to a stack. When
+              you're ready, paste the entire stack as a single block of context.
+              Great for feeding multiple pieces of information into an AI chat
+              or a bug report.
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            Stack Panel +------------------------------------+ | 1. error log
+            from terminal | | 2. screenshot of failing UI | | 3. relevant config
+            snippet | | 4. voice note transcription |
+            +------------------------------------+ | v paste all
+            +------------------------------------+ | [combined context block] |
+            | ready for Claude / ChatGPT / Slack |
+            +------------------------------------+
+          </div>
+        </article>
+
+        <hr class="dotted-line" />
+
+        <!-- Feature 7: Screenshots & Annotation -->
+        <article class="feature">
+          <div class="feature-content">
+            <h2>Screenshot capture and annotation.</h2>
+            <p class="feature-problem">
+              Capture your screen, draw on the result, and paste it. Circle the
+              bug, arrow to the button that's wrong, scribble a quick wireframe.
+              No export step, no separate app &mdash; it's already in your
+              clipboard.
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            +---------------------------+ | screen capture | | +---+ | | | O |
+            &lt;-- circle this | | +---+ | | \ | | \ arrow here | | v | | [
+            button ] | +---------------------------+
+            <span class="highlight">annotated &amp; copied</span>
+          </div>
+        </article>
+
+        <hr class="dotted-line" />
+
+        <!-- Feature 8: Transcription -->
+        <article class="feature reversed">
+          <div class="feature-content">
+            <h2>Voice transcription &mdash; speak, don't type.</h2>
+            <p class="feature-problem">
+              Real-time voice-to-text that lands in your clipboard or directly
+              onto the stack. Dictate notes, describe a bug, or narrate what
+              you're looking at. The transcription is local and fast.
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            mic on +------------------------------------+ | "The login page
+            throws a 403 after | | the token refresh, I think it's | | the
+            cookie domain mismatch we | | saw last week..." |
+            +------------------------------------+ | v transcribed
+            +------------------------------------+ | The login page throws a 403
+            after | | the token refresh. Likely the | | cookie domain mismatch
+            from last | | week. | +------------------------------------+
+          </div>
+        </article>
+
+        <hr class="dotted-line" />
+
+        <!-- Feature 9: Source App Tracking -->
+        <article class="feature">
+          <div class="feature-content">
+            <h2>
+              Source app tracking &mdash; know where everything came from.
+            </h2>
+            <p class="feature-problem">
+              Every clipboard entry records which application it came from. When
+              you're reviewing history, you can see at a glance whether that
+              snippet was from VS Code, Chrome, Slack, or Terminal.
+            </p>
+            <div class="feature-badges">
+              <span class="offline-badge">works locally</span>
+            </div>
+          </div>
+          <div class="feature-visual">
+            clipboard history +------------------------------------+ | "rm -rf
+            node_modules" | |
+            <span class="highlight">from: Terminal</span> 12:04:31 |
+            +------------------------------------+ | "function debounce(fn, ms)
+            {..." | | <span class="highlight">from: VS Code</span> 12:03:55 |
+            +------------------------------------+ | "Can you review PR #412?" |
+            | <span class="highlight">from: Slack</span> 12:02:12 |
+            +------------------------------------+
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-content">
+          <p class="footer-copyright">
+            <span class="footer-brand">Clibbits</span> &copy; 2026
+          </p>
+          <ul class="footer-links">
+            <li><a href="hotlinks.html">Hot Links</a></li>
+            <li><a href="philosophy.html">Philosophy</a></li>
+            <li>
+              <button class="theme-toggle" onclick="toggleTheme()">
+                &#x25D0;
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+      }
+
+      function toggleTheme() {
+        document.body.classList.toggle("dark");
+        localStorage.setItem(
+          "theme",
+          document.body.classList.contains("dark") ? "dark" : "light",
+        );
+      }
+
+      function toggleNav() {
+        var navLinks = document.getElementById("nav-links");
+        if (navLinks) navLinks.classList.toggle("open");
+      }
+
+      document.querySelectorAll(".nav-links a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          var navLinks = document.getElementById("nav-links");
+          if (navLinks) navLinks.classList.remove("open");
+        });
       });
-    });
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
