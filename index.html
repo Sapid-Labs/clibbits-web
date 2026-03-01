@@ -104,50 +104,33 @@
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-+-----------------------------------------+
-| Clipboard Monitor             [polling] |
-+-----------------------------------------+
-| 12:04:31  "ssh user@prod-03"            |
-| 12:04:28  &lt;image: screenshot.png&gt;       |
-| 12:03:55  "SELECT * FROM users WHER.."  |
-| 12:03:40  "Bearer eyJhbGciOi..."        |
-| 12:02:12  "https://github.com/..."      |
-+-----------------------------------------+
-| <span class="highlight">5 items</span> | auto-saved to disk          |
-+-----------------------------------------+</div>
+            <img src="images/clipboard-history.png" alt="Clipboard history showing saved text snippets and images" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
 
-        <!-- Feature 2: Custom Boards -->
+        <!-- Feature 2: Replacements -->
         <article class="feature reversed">
           <div class="feature-content">
             <h2>
-              Custom boards &mdash; organize your clipboard like a kanban.
+              Replacements &mdash; speak a phrase, paste a template.
             </h2>
             <p class="feature-problem">
-              Create named boards for different projects or workflows. Your main
-              board captures everything by default. Switch between boards to
-              keep context separated. Each board is its own file on disk.
+              Define trigger phrases that expand into full text when you use
+              voice capture. Say &ldquo;design system&rdquo; and get your entire
+              style guide in the clipboard. Supports exact and partial matching,
+              so a short phrase can insert boilerplate, code snippets, or whole
+              Markdown documents.
             </p>
             <div class="feature-badges">
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-boards.json
-+---------+-----------+-----------+
-| <span class="highlight">Main</span>    | Project A | Research  |
-+---------+-----------+-----------+
-|         |           |           |
-|  index  |  a3f7...  |  b8c2...  |
-|  .json  |  .json    |  .json    |
-|         |           |           |
-+---------+-----------+-----------+
-active: <span class="highlight">Project A</span></div>
+            <img src="images/replacements.png" alt="Replacements settings showing trigger phrases and expanded content" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
@@ -166,23 +149,9 @@ active: <span class="highlight">Project A</span></div>
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-+---------------------------+
-| [Screenshot of terminal]  |
-|                           |
-|  Error: ENOENT: no such   |
-|  file or directory,       |
-|  open '/tmp/config.yml'   |
-+---------------------------+
-             |
-             v  Tesseract.js
-+---------------------------+
-| "Error: ENOENT: no such   |
-|  file or directory,        |
-|  open '/tmp/config.yml'"   |
-+---------------------------+
-<span class="highlight">ready to paste</span></div>
+            <img src="images/ocr.png" alt="OCR extracting text from a screenshot" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
@@ -194,7 +163,7 @@ active: <span class="highlight">Project A</span></div>
               AI text processing &mdash; transform clipboard content on the fly.
             </h2>
             <p class="feature-problem">
-              Send any clipboard entry through Gemini AI with custom prompt
+              Send any clipboard entry through your configured LLM with custom prompt
               templates. Summarize long text, translate, extract key points,
               rewrite for tone, or run any prompt you define. Results land right
               back in your clipboard.
@@ -203,20 +172,9 @@ active: <span class="highlight">Project A</span></div>
               <span class="online-badge">requires internet</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-clipboard item
-"The quarterly results indicate a
-significant deviation from projected
-growth metrics across all verticals,
-particularly in the B2B SaaS segment
-where ARR fell short by 12%..."
-             |
-             v
-<span class="highlight">prompt: "summarize in one line"</span>
-             |
-"Q4 missed ARR targets by 12%,
- mainly in B2B SaaS."</div>
+            <img src="images/ai-processing.png" alt="AI processing transforming clipboard text with a prompt" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
@@ -246,19 +204,9 @@ where ARR fell short by 12%..."
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-settings &gt; hot links
-+------------------------------------+
-| Label:   Jira Ticket               |
-| Pattern: ([A-Z]+-\d+)             |
-| URL:     https://jira.co/browse/$1 |
-+------------------------------------+
-
-clipboard: "Fix AUTH-2847 before release"
-             |
-             v
-<span class="highlight">[Jira Ticket: AUTH-2847]</span> &lt;-- click to open</div>
+            <img src="images/hot-links.png" alt="Hot links turning clipboard text into clickable URLs" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
@@ -279,22 +227,9 @@ clipboard: "Fix AUTH-2847 before release"
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-Stack Panel
-+------------------------------------+
-| 1. error log from terminal         |
-| 2. screenshot of failing UI        |
-| 3. relevant config snippet         |
-| 4. voice note transcription        |
-+------------------------------------+
-             |
-             v  paste all
-+------------------------------------+
-| [combined context block]           |
-|                                    |
-| ready for Claude / ChatGPT / Slack |
-+------------------------------------+</div>
+            <img src="images/context-stacking.png" alt="Context stacking combining multiple clipboard items into one paste" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
@@ -313,19 +248,9 @@ Stack Panel
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-+---------------------------+
-| screen capture            |
-|        +---+              |
-|        | O | &lt;-- circle   |
-|        +---+              |
-|          \                |
-|           \ arrow here    |
-|            v              |
-|       [ button ]          |
-+---------------------------+
-<span class="highlight">annotated &amp; copied</span></div>
+            <img src="images/screenshots.png" alt="Screenshot capture with annotation tools" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
@@ -343,55 +268,32 @@ Stack Panel
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-mic on
-+------------------------------------+
-| "The login page throws a 403 after |
-|  the token refresh, I think it's   |
-|  the cookie domain mismatch we     |
-|  saw last week..."                 |
-+------------------------------------+
-             |
-             v  transcribed
-+------------------------------------+
-| The login page throws a 403 after  |
-| the token refresh. Likely the      |
-| cookie domain mismatch from last   |
-| week.                              |
-+------------------------------------+</div>
+            <img src="images/transcription.png" alt="Voice transcription converting speech to clipboard text" />
+          </div>
         </article>
 
         <hr class="dotted-line" />
 
-        <!-- Feature 9: Source App Tracking -->
+        <!-- Feature 9: Usage Tracking -->
         <article class="feature">
           <div class="feature-content">
             <h2>
-              Source app tracking &mdash; know where everything came from.
+              Usage tracking &mdash; see how you use your clipboard.
             </h2>
             <p class="feature-problem">
-              Every clipboard entry records which application it came from. When
-              you're reviewing history, you can see at a glance whether that
-              snippet was from VS Code, Chrome, Slack, or Terminal.
+              Local-only analytics show copies, saves, transcriptions, and more.
+              A stacked bar chart breaks down daily activity, summary cards show
+              all-time totals, and per-feature breakdowns reveal which tools you
+              lean on most. All data stays on your machine.
             </p>
             <div class="feature-badges">
               <span class="offline-badge">works locally</span>
             </div>
           </div>
-          <!-- prettier-ignore -->
           <div class="feature-visual">
-clipboard history
-+------------------------------------+
-| "rm -rf node_modules"             |
-| <span class="highlight">from: Terminal</span>            12:04:31 |
-+------------------------------------+
-| "function debounce(fn, ms) {..."   |
-| <span class="highlight">from: VS Code</span>            12:03:55 |
-+------------------------------------+
-| "Can you review PR #412?"         |
-| <span class="highlight">from: Slack</span>               12:02:12 |
-+------------------------------------+</div>
+            <img src="images/usage-tracking.png" alt="Usage tracking dashboard with charts and summary cards" />
+          </div>
         </article>
       </div>
     </section>
